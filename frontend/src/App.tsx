@@ -457,6 +457,8 @@ function AIDossier({ result }: { result: ScoreResult }) {
 }
 
 // ── Main Dashboard Application ────────────────────────────────────────
+const API_BASE_URL = 'https://fraudshield-ai-o9ag.onrender.com';
+
 export default function App() {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [metrics, setMetrics] = useState<Metrics | null>(null)
@@ -540,7 +542,7 @@ export default function App() {
   useEffect(() => {
     const poll = setInterval(async () => {
       try {
-        const r = await fetch('/api/metrics')
+        const r = await fetch(API_BASE_URL + '/api/metrics')
         if (r.ok) setMetrics(await r.json())
       } catch {
         /* silent */
@@ -586,7 +588,7 @@ export default function App() {
   // Stream controls
   const startStream = useCallback(() => {
     if (eventSourceRef.current) return
-    const es = new EventSource('/stream')
+    const es = new EventSource(`${API_BASE_URL}/stream`)
     es.onmessage = e => {
       try {
         addTx(JSON.parse(e.data))
@@ -641,7 +643,7 @@ export default function App() {
     setTestResult(null)
     setInvestigating(false)
     try {
-      const r = await fetch('/api/test-transaction', {
+      const r = await fetch(`${API_BASE_URL}/api/test-transaction`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -472,7 +472,7 @@ export default function App() {
   const [showShortcuts, setShowShortcuts] = useState(false)
   const [environment, setEnvironment] = useState<'sandbox' | 'production'>('production')
 
-  const [dark, setDark] = useState(() => localStorage.getItem('fs-theme') === 'dark')
+  const [dark, setDark] = useState(() => localStorage.getItem('fs-theme') !== 'light')
   const [timeline, setTimeline] = useState<{ total: number; fraud: number }[]>(
     Array(12).fill(null).map(() => ({ total: 0, fraud: 0 }))
   )
@@ -617,7 +617,7 @@ export default function App() {
   const injectFraud = useCallback(
     async (label: string) => {
       try {
-        const r = await fetch(`/api/inject-fraud?label=${label}`, { method: 'POST' })
+        const r = await fetch(`${API_BASE_URL}/api/inject-fraud?label=${label}`, { method: 'POST' })
         if (r.ok) {
           const d = await r.json()
           const o = d.result
@@ -1381,7 +1381,7 @@ export default function App() {
                 <div className="grid grid-cols-2 gap-2">
                   <div>
                     <label className="block text-[10px] font-semibold uppercase tracking-wider text-[var(--text-3)] mb-1">
-                      Sender Bal
+                      Sender Balance
                     </label>
                     <input
                       type="number"
@@ -1392,7 +1392,7 @@ export default function App() {
                   </div>
                   <div>
                     <label className="block text-[10px] font-semibold uppercase tracking-wider text-[var(--text-3)] mb-1">
-                      Dest Bal
+                      Receiver Balance
                     </label>
                     <input
                       type="number"

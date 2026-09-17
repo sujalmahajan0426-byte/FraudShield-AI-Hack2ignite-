@@ -1,0 +1,10 @@
+{
+  "roc_auc": 0.9999,
+  "pr_auc": 0.9481,
+  "f1_score": 0.7736,
+  "optimal_threshold": 0.9838,
+  "n_train": 400000,
+  "n_val": 100000,
+  "fraud_rate_pct": 0.129,
+  "note": "newbalance* columns deliberately excluded to avoid PaySim data leakage"
+}

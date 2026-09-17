@@ -1,0 +1,13 @@
+[
+  "amount",
+  "oldbalanceOrg",
+  "oldbalanceDest",
+  "amount_to_balance_ratio",
+  "is_large_relative_tx",
+  "step_hour",
+  "type_CASH_IN",
+  "type_CASH_OUT",
+  "type_DEBIT",
+  "type_PAYMENT",
+  "type_TRANSFER"
+]

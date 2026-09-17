@@ -105,6 +105,8 @@ class TransactionInput(BaseModel):
 
 class ScoreResponse(BaseModel):
     transaction_id: str
+    amount: float = 0.0
+    type: str = "TRANSFER"
     fraud_score: float
     is_fraud: bool
     risk_level: str  # LOW / MEDIUM / HIGH / CRITICAL
@@ -283,6 +285,8 @@ async def score_transaction(txn: TransactionInput):
 
     result = ScoreResponse(
         transaction_id=str(uuid.uuid4())[:8],
+        amount=txn.amount,
+        type=txn.type,
         fraud_score=round(fraud_score, 4),
         is_fraud=is_fraud,
         risk_level=classify_risk(fraud_score),
@@ -483,8 +487,8 @@ async def get_metrics():
         "stream_stats": {
             "total_processed": stats["total_processed"],
             "total_flagged": stats["total_flagged"],
-            "total_amount_processed": format_currency(stats["total_amount_processed"]),
-            "total_amount_blocked": format_currency(stats["total_amount_blocked"]),
+            "total_amount_processed": round(stats["total_amount_processed"], 0),
+            "total_amount_blocked": round(stats["total_amount_blocked"], 0),
             "fraud_rate": round(
                 stats["total_flagged"] / max(stats["total_processed"], 1) * 100, 2
             ),

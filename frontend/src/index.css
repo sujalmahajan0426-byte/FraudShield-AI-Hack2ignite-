@@ -1,1 +1,136 @@
 @import "tailwindcss";
+
+/* ── Theme System: CSS Custom Properties ──────────────────────────── */
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --card-alt: #f8fafc;
+  --surface: #f1f5f9;
+  --border: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --text: #0f172a;
+  --text-2: #475569;
+  --text-3: #94a3b8;
+  --text-4: #cbd5e1;
+  --hover: #f8fafc;
+  --input-bg: #f8fafc;
+  --badge-bg: #f1f5f9;
+  --scrollbar: #cbd5e1;
+  --scrollbar-hover: #94a3b8;
+  --range-track: #e2e8f0;
+  --range-thumb: #0f172a;
+  --range-thumb-border: #ffffff;
+  --bar-bg: #e2e8f0;
+  --bar-legit: #cbd5e1;
+  --tooltip-bg: #0f172a;
+  --tooltip-text: #f8fafc;
+}
+
+.dark {
+  --bg: #09090b;
+  --card: #141416;
+  --card-alt: #1a1a1e;
+  --surface: #1c1c20;
+  --border: #27272a;
+  --border-subtle: #1e1e22;
+  --text: #fafafa;
+  --text-2: #a1a1aa;
+  --text-3: #71717a;
+  --text-4: #3f3f46;
+  --hover: #1c1c20;
+  --input-bg: #1c1c20;
+  --badge-bg: #27272a;
+  --scrollbar: #3f3f46;
+  --scrollbar-hover: #52525b;
+  --range-track: #27272a;
+  --range-thumb: #fafafa;
+  --range-thumb-border: #141416;
+  --bar-bg: #27272a;
+  --bar-legit: #3f3f46;
+  --tooltip-bg: #27272a;
+  --tooltip-text: #fafafa;
+}
+
+/* ── Base ────────────────────────────────────────────────────────────── */
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* ── Animations ──────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in { animation: fadeIn 300ms ease-out forwards; }
+.animate-slide-down { animation: slideDown 250ms ease-out forwards; }
+
+@keyframes rowFlashRed {
+  0% { background-color: rgba(239, 68, 68, 0.22); }
+  100% { background-color: transparent; }
+}
+
+@keyframes rowFlashGreen {
+  0% { background-color: rgba(16, 185, 129, 0.15); }
+  100% { background-color: transparent; }
+}
+
+.animate-flash-red { animation: rowFlashRed 1200ms ease-out; }
+.animate-flash-green { animation: rowFlashGreen 900ms ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+
+/* ── Range Slider ────────────────────────────────────────────────────── */
+input[type=range] { -webkit-appearance: none; background: transparent; width: 100%; }
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 14px; width: 14px; border-radius: 50%;
+  background: var(--range-thumb);
+  cursor: pointer; margin-top: -5px;
+  border: 2px solid var(--range-thumb-border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%; height: 4px; cursor: pointer;
+  background: var(--range-track); border-radius: 2px;
+}
+input[type=range]:focus { outline: none; }
+
+/* ── Buttons ─────────────────────────────────────────────────────────── */
+button { transition: all 120ms ease; }
+button:active:not(:disabled) { transform: scale(0.98); }
+
+/* ── Inputs ──────────────────────────────────────────────────────────── */
+input[type=number] { font-variant-numeric: tabular-nums; }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* ── Table ───────────────────────────────────────────────────────────── */
+tbody tr { transition: background-color 120ms ease; }
+
+/* ── Theme transition on cards ───────────────────────────────────────── */
+header, main > div, footer, .theme-card {
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
